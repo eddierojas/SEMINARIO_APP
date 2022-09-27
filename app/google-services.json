@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "480947020121",
+    "project_id": "seminario-d3dd6",
+    "storage_bucket": "seminario-d3dd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480947020121:android:de8e93d1784218cb22ec48",
+        "android_client_info": {
+          "package_name": "com.example.usuarios_yya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480947020121-7hd4f3s50mq34ao116kgjtvh9nlu6h7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNRVaVRGgrUVR8ecGf1-OpuxKXLJRihLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480947020121-7hd4f3s50mq34ao116kgjtvh9nlu6h7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
