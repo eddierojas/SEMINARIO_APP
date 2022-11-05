@@ -9,6 +9,11 @@ import androidx.cardview.widget.CardView
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import androidx.databinding.DataBindingUtil
+import com.example.usuarios_yya.databinding.ActivityHomeBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 
@@ -17,58 +22,82 @@ enum class ProviderType{
     BASIC
 }
 class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityHomeBinding
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        val db = FirebaseFirestore.getInstance()
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
+
+
         val bundle = intent.extras
         val email= bundle?.getString("email")
         val provider= bundle?.getString("provider")
 
-        setup(email?:"", provider?:"")
 
-findViewById<CardView>(R.id.card1).setOnClickListener{
-    val intent = Intent(this, Tienda::class.java)
-    startActivity(intent)
+        auth = Firebase.auth
 
-}
+        val currentUser = auth.currentUser
+        val uid = currentUser!!.uid
+        val db = Firebase.firestore
 
-        findViewById<CardView>(R.id.card2).setOnClickListener{
-            val intent = Intent(this, Pedidos::class.java)
-            startActivity(intent)
+        db.collection("users").document(uid).get().addOnSuccessListener {
+            binding.eTxtNombreUser.text = ("Nombre: " + it.get("nombre") as String?)
+            binding.eTxtApellidoUser.text = ("Apellido: " + it.get("apellido") as String?)
+            binding.eTxtCorreoUser.text = ("Correo: " + it.get("correo") as String?)
+            binding.eTxtTelefonoUser.text = ("Telefono: " + it.get("telefono") as String?)
+            binding.eTxtGeneroUser.text = ("Genero: " + it.get("genero") as String?)
+            binding.eTxtfechaUser.text = ("Fecha de nacimiento: " + it.get("fechanacimiento") as String?)
+            binding.eTxtPaisUser.text = ("Pais: " + it.get("pais") as String?)
+            binding.eTxtProvinciaUser.text = ("Provincia: " + it.get("provincia") as String?)
+            val prueba1 =it.get("seller");
+            binding.eTxtDireccionUser.text = ("Direccion: " + prueba1 as String?)
 
-        }
-
-        findViewById<CardView>(R.id.card3).setOnClickListener{
-            val intent = Intent(this, HistorialPedidos::class.java)
-            startActivity(intent)
-
-        }
-
-        findViewById<CardView>(R.id.card4).setOnClickListener{
-            val intent = Intent(this, Perfil::class.java)
-            startActivity(intent)
-
-        }
-
-        findViewById<CardView>(R.id.card5).setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            onBackPressed()
+            if (prueba1=="1"){
+                val intent = Intent(this, SellerAct::class.java)
+                startActivity(
+                    intent
+                )
+            }
 
         }
 
-    }
+        binding.btnLogout.setOnClickListener {
+            cerrarSesion()
+        }
 
-    private fun setup(email: String, provider:String){
-        title = "Inicio"
-        val emailU = findViewById<TextView>(R.id.emailText)
-        val prov = findViewById<TextView>(R.id.provider)
-        emailU.text=email;
-        prov.text=provider
+
+
+
 
 
 
     }
+
+    private fun cerrarSesion() {
+        auth.signOut()
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(
+            intent
+        )
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            reload()
+        } else {
+
+        }
+    }
+
+    private fun reload() {
+
+    }
+
+
 }

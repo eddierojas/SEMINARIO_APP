@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="@drawable/back"
     tools:context=".AuthActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -25,6 +29,7 @@
         android:layout_below="@id/signin"
         android:background="#30ffffff"
         android:hint="Usuario"
+
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:layout_margin="10dp"
@@ -38,7 +43,8 @@
         android:id="@+id/password"
         android:layout_below="@id/username"
         android:background="#30ffffff"
-        android:hint="Usuario"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:layout_margin="10dp"
@@ -60,26 +66,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/register"
-        android:layout_below="@+id/loginbtn"
         android:text="REGISTRAR"
-        app:backgroundTint="@color/black"
+        app:backgroundTint="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/forgotpass"
-        android:layout_below="@+id/loginbtn"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-
-        />
 
 
 
 
-
-
-</RelativeLayout>
+    </LinearLayout>
+</layout>
